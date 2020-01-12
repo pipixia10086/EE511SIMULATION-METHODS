@@ -1,0 +1,1647 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{EE511Project5}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{beta}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         \PY{k+kn}{import} \PY{n+nn}{itertools}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         
+         \PY{k}{def} \PY{n+nf}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.6}\PY{o}{*}\PY{n}{beta}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.4}\PY{o}{*}\PY{n}{beta}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.00001}
+         
+         
+         \PY{k}{def} \PY{n+nf}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T} \PY{o}{=} \PY{n}{t}
+             \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{T} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{init}
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{n}{T}\PY{p}{:}
+                 \PY{n}{t} \PY{o}{=} \PY{n}{t} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{norm}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{scale}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                 \PY{n}{alpha} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{u} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{u} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{alpha}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{n}{theta}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{func} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{frompyfunc}\PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_1_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  MCMC for Sampling
+\end{enumerate}
+
+The random variable X has a mixture distribution: 60\% in a Beta(1,8)
+distribution and 40\% in a Beta(9,1) distribution. Therefore, the pdf is
+as belowed:
+
+\begin{equation}
+f(x)= 0.6 * Beta(1, 8) + 0.4 * Beta(9,1)
+\end{equation}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  Implement a Metropolis-Hastings algorithm to generate samples from
+  this distribution.
+\end{enumerate}
+
+First of all, we plot the real pdf of mixed beta distribution in order
+to check the validation of the method we use. Metropolis-Hastings
+algorithm: When performing Bayesian inference, we aim to compute and use
+the full posterior joint distribution over a set of random variables.
+Unfortunately, this often requires calculating intractable integrals. In
+such cases, we proceed with sampling techniques based upon Markov Chain.
+The Metropolis-Hastings (MH) algorithm is one of methods, which
+simulates samples from a probability distribution by making use of the
+full joint density function and (independent) proposal distributions.
+The algorithm is as belowed:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Initialize:x\^{}0\textasciitilde{}q(x)
+\item
+  for:i = 1,2,3,...do
+\item
+  Propose: \(x^{cand}\)\textasciitilde{}\(q(x^{i}|x^{i-1})\)
+\item
+  Acceptance Probability:
+\item
+  \(\alpha\) = min\{1,
+  \(\frac{q(x^{i}|x^{cand})\pi^{cand}}{q(x^{cand}|x^{i})\pi^{i-1}}\)\}
+\item
+  u\textasciitilde{}Uniform (u; 0; 1)
+\item
+  if u \textless{} \(\alpha\) then Accept the proposal: x(i)
+  \(\leftarrow\) xcand else Reject the proposal: x\^{}(i) \(\leftarrow\)
+  x\^{}(i-1)
+\end{enumerate}
+
+In the first experiment, we use norm distribution as our the proposal
+distribution since the norm distribution is symmetric and radial basis
+function, \(q(x^{i}|x^{i-1})\) = \(q(x^{i-1}|x^{i})\), the acceptance
+rate is also simplified.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{T}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)} 
+            \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+            \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{sca}\PY{p}{(}\PY{n}{ax1}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{T} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{theta}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{sca}\PY{p}{(}\PY{n}{ax2}\PY{p}{)}
+            \PY{n}{num\PYZus{}bins} \PY{o}{=} \PY{l+m+mi}{50}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{num\PYZus{}bins}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{5000}
+         \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{n}{T}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{n}{T}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{n}{T}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{check\PYZus{}answer}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+            \PY{n}{degree\PYZus{}of\PYZus{}freedom} \PY{o}{=} \PY{n}{k} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{} The threshold at a 5\PYZpc{} significance level of different degree\PYZus{}of\PYZus{}freedom}
+            \PY{n}{chi\PYZus{}squared\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}
+                \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mf}{3.84}\PY{p}{,}
+                \PY{l+m+mi}{2}\PY{p}{:} \PY{l+m+mf}{5.99}\PY{p}{,}
+                \PY{l+m+mi}{3}\PY{p}{:} \PY{l+m+mf}{7.82}\PY{p}{,}
+                \PY{l+m+mi}{4}\PY{p}{:} \PY{l+m+mf}{9.49}\PY{p}{,}
+                \PY{l+m+mi}{5}\PY{p}{:} \PY{l+m+mf}{11.07}\PY{p}{,}
+                \PY{l+m+mi}{6}\PY{p}{:} \PY{l+m+mf}{12.59}\PY{p}{,}
+                \PY{l+m+mi}{7}\PY{p}{:} \PY{l+m+mf}{14.07}\PY{p}{,}
+                \PY{l+m+mi}{8}\PY{p}{:} \PY{l+m+mf}{15.51}\PY{p}{,}
+                \PY{l+m+mi}{9}\PY{p}{:} \PY{l+m+mf}{16.92}\PY{p}{,}
+                \PY{l+m+mi}{10}\PY{p}{:} \PY{l+m+mf}{18.31}\PY{p}{,}
+            \PY{p}{\PYZcb{}}
+            \PY{k}{if} \PY{n}{res} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{chi\PYZus{}squared\PYZus{}dict}\PY{p}{[}\PY{n}{degree\PYZus{}of\PYZus{}freedom}\PY{p}{]}\PY{p}{:}
+                \PY{n}{probability\PYZus{}of\PYZus{}truth} \PY{o}{=} \PY{l+m+mf}{0.95}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{probability\PYZus{}of\PYZus{}truth} \PY{o}{=} \PY{l+m+mf}{0.05}
+            \PY{k}{return} \PY{n}{probability\PYZus{}of\PYZus{}truth}
+        
+        
+        \PY{k}{def} \PY{n+nf}{chi\PYZus{}squard}\PY{p}{(}\PY{n}{expected}\PY{p}{,} \PY{n}{estimated}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tmp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{expected} \PY{o}{\PYZhy{}} \PY{n}{estimated}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{res} \PY{o}{=} \PY{n}{tmp} \PY{o}{/} \PY{n}{expected} 
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{res}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{5000}
+            
+        \PY{k}{def} \PY{n+nf}{estimate\PYZus{}convergence\PYZus{}time}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{expected}\PY{p}{,} \PY{n}{strata}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+            \PY{n}{prob} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{start} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{theta} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{start}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{k}{while} \PY{n}{prob} \PY{o}{!=} \PY{l+m+mf}{0.95} \PY{o+ow}{and} \PY{n}{count} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{500}\PY{p}{:}
+                \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{p}\PY{p}{,} \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{n}{start}\PY{p}{:}\PY{n}{count}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{p} \PY{o}{=} \PY{n}{p}\PY{o}{/}\PY{p}{(}\PY{n}{count} \PY{o}{*} \PY{l+m+mi}{10}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+                \PY{n}{chi\PYZus{}value} \PY{o}{=} \PY{n}{chi\PYZus{}squard}\PY{p}{(}\PY{n}{expected}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+                \PY{n}{prob} \PY{o}{=} \PY{n}{check\PYZus{}answer}\PY{p}{(}\PY{n}{chi\PYZus{}value}\PY{p}{)}
+            \PY{k}{if} \PY{n}{count} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{500}\PY{p}{:}
+                \PY{k}{return} \PY{n}{count}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate}
+         \PY{n}{expected} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{area}\PY{p}{,} \PY{n}{err} \PY{o}{=} \PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{,} \PY{l+m+mf}{0.25} \PY{o}{*} \PY{n}{i}\PY{p}{,} \PY{l+m+mf}{0.25} \PY{o}{*} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{expected}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{area}\PY{p}{)}
+         
+         \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Run the algorithm multiple times from different initial points. Plot
+  sample paths for the algorithm. Can you tell if/when the algorithm
+  converges to its equilibrium distribution?
+\end{enumerate}
+
+We use different initial points to run the algorithm multiple times and
+plots their sample path. Apparently，we know that all the sample path
+will be limited in the range {[}0, 1{]} and repeat some pattern during
+some period， which means that the the algorithm converges to its
+equilibrium distribution. Of course the algorithm will convergence，
+That's because it satisfy the detailed balance condition
+\[\pi(i)P_{ij} = \pi(j)P_{ji}\] Proof:
+
+\begin{align}
+\pi(x)q(x^{*}|x)\alpha(x^{*}) &= \pi(x) * q(x^{*}|x) * min(1, \frac{\pi(x^*)q(x|x^{*})}{\pi(x)q(x^{*}|x)})\\
+&= min(\pi(x) * q(x^{*}|x), \pi(x^*)q(x|x^{*}))\\
+&= \pi(x^*) * q(x|x^*) * min(1, \frac{\pi(x)q(x^*|x)}{\pi(x^*)q(x|x^*)})\\
+&= \pi(x^*)q(x|x^*)\alpha(x)
+\end{align}
+
+Given the equation, we could get that
+
+\begin{equation}
+\sum_{i=1}^{\infty}\pi(i)P_{ij} = \sum_{i=1}^{\infty}\pi(j)P_{ji} = \pi(j)\\
+\Rightarrow \pi P = \pi
+\end{equation}
+
+And we get the initial points will have effect on the convergence. The
+closer the initial point to the range， the faster the convergence is.
+Once the point get into the range, the probability that it escape out of
+the range will be small enough.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate}
+         
+         \PY{n}{expected} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{area}\PY{p}{,} \PY{n}{err} \PY{o}{=} \PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{,} \PY{l+m+mf}{0.25} \PY{o}{*} \PY{n}{i}\PY{p}{,} \PY{l+m+mf}{0.25} \PY{o}{*} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{expected}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{area}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{expected:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{expected}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+expected: [0.5399337768554686, 0.05850372314453124, 0.031587219238281256, 0.3699752807617188]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k}{def} \PY{n+nf}{estimate\PYZus{}convergence\PYZus{}time}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{expected}\PY{p}{,} \PY{n}{strata}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+             \PY{n}{prob} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{start} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{theta} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{start}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+             \PY{k}{while} \PY{n}{prob} \PY{o}{!=} \PY{l+m+mf}{0.95} \PY{o+ow}{and} \PY{n}{count} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{500}\PY{p}{:}
+                 \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{p}\PY{p}{,} \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{n}{start}\PY{p}{:}\PY{n}{count}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{p} \PY{o}{=} \PY{n}{p}\PY{o}{/}\PY{p}{(}\PY{n}{count} \PY{o}{*} \PY{l+m+mi}{10}\PY{p}{)}
+                 \PY{n}{chi\PYZus{}value} \PY{o}{=} \PY{n}{chi\PYZus{}squard}\PY{p}{(}\PY{n}{expected}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+                 \PY{n}{prob} \PY{o}{=} \PY{n}{check\PYZus{}answer}\PY{p}{(}\PY{n}{chi\PYZus{}value}\PY{p}{)}
+             \PY{k}{if} \PY{n}{count} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{500}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{count}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{count} \PY{o}{=} \PY{n}{estimate\PYZus{}convergence\PYZus{}time}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{expected}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The convergence time might be}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The convergence time might be 164
+
+    \end{Verbatim}
+
+    Let us try to estimate the convergence time. I just use chi\_squard
+goodness of fit to estimate whether it could convergence. Since the
+sample path will repeat some pattern in order to keep the its
+equilibrium distribution. At some point, its chi-squard must satisfy our
+hypothesis. Luckily, it works. Howerver, the convergence time is round,
+not exact and I think the value I get must be larger than the atucal
+value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{:}
+            \PY{n}{p}\PY{p}{,} \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{p} \PY{o}{=} \PY{n}{p}\PY{o}{/}\PY{l+m+mi}{5000}
+            \PY{n}{chi\PYZus{}value} \PY{o}{=} \PY{n}{chi\PYZus{}squard}\PY{p}{(}\PY{n}{expected}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+            \PY{k}{return} \PY{n}{chi\PYZus{}value}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{)}
+          \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 1.3581148168815622
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{k}{def} \PY{n+nf}{mcmc\PYZus{}sampling\PYZus{}uniform}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T} \PY{o}{=} \PY{n}{t}
+             \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{T} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{init}
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{n}{T}\PY{p}{:}
+                 \PY{n}{t} \PY{o}{=} \PY{n}{t} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{alpha} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta\PYZus{}star}\PY{p}{)} \PY{o}{/} \PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{u} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{u} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{alpha}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta\PYZus{}star}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{n}{theta}
+         
+         
+         \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling\PYZus{}uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 13.538910130201213
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{cauchy}
+         
+         \PY{k}{def} \PY{n+nf}{mcmc\PYZus{}sampling\PYZus{}cauchy}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T} \PY{o}{=} \PY{n}{t}
+             \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{T} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{init}
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{n}{T}\PY{p}{:}
+                 \PY{n}{t} \PY{o}{=} \PY{n}{t} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{cauchy}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.75}\PY{p}{)}
+                 \PY{n}{alpha} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta\PYZus{}star}\PY{p}{)} \PY{o}{/} \PY{n}{mixed\PYZus{}beta}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{u} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{u} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{alpha}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta\PYZus{}star}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{theta}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{theta}\PY{p}{[}\PY{n}{t} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{n}{theta}
+         
+         
+         \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling\PYZus{}cauchy}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plot\PYZus{}res}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 2.5103581235141674
+
+    \end{Verbatim}
+
+    Plot sample paths for the algorithm using different proposal pdfs. There
+are mainly two kinds of proposal distributions, symmetric and
+asymmetric. Straightforward choices of symmetric proposals include
+Gaussian distributions, Cauchy Distuibution, laplace distribution or
+Uniform distributions centered at the current state of the chain.
+However, all the performance of the proposal distribution depends on the
+actual situation and we need to set suitable parameter to make the
+algorithm better. And We prefer symmetric to asymmetric distribution
+because it is simpler. Only if we confront the skew problem， we might
+use asymmetric distribution. Here， I use Cauchy distribution， norm
+distribution and uniform and I try my best to set proper parameter.
+
+From the plot and chi-squard value of each distribution, we could
+conclude that the uniform performs worst and Cauchy perform better.
+Because the center is tine.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+             \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 33.16605104436671
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 54.0845744802735
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+              \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 148.64088727187476
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+              \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 28.09487840050463
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+              \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 27.382092515588408
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{chi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{mcmc\PYZus{}sampling}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+              \PY{n}{chi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calculate\PYZus{}chi}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chi\PYZus{}squard value is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{chi}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chi\_squard value is 183.28602139556742
+
+    \end{Verbatim}
+
+    Comment on the effect of low-variance vs high-variance proposal pdfs on
+the behavior of your algorithm.
+
+As for the effect of variance of proposal pdfs，we also should set
+proper variance since decrease variance means smaller step and lower
+acceptance. By contrast increase variance means larger step and higher
+acceptance. From chi-squard value，we could see the chi-squard value
+decreases firstly and then increase as the variance increases.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{k}{def} \PY{n+nf}{scwefel\PYZus{}2d}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{l+m+mi}{2} \PY{o}{*} \PY{l+m+mf}{418.9829} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{x1} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+                                     \PY{o}{+} \PY{n}{x2} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{func2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{frompyfunc}\PY{p}{(}\PY{n}{scwefel\PYZus{}2d}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}obj\PYZus{}func}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+              \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{n}{Z} \PY{o}{=} \PY{n}{func2}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+              \PY{n}{cset} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{hot}\PY{p}{)}
+              \PY{n}{contour} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{clabel}\PY{p}{(}\PY{n}{contour}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{cset}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{Axes3D}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{plot\PYZus{}obj\PYZus{}func}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} 0
+\end{Verbatim}
+            
+    MCMC for Optimization The n-dimensional Scwefel function is a very bumpy
+surface with many local critical points and one global minimum. We will
+explore the surface for the case n=2 dimensions. i. Plot a contour plot
+of the surface for the 2-D surface I plot its 3-d picture and a coutour
+of the surface. From the figure above，it's very bumpy, which means
+there are so mant local minmum. We should set a enough step to jump out
+of the local minmum. And we can easily see the minimum field it might be
+from the first picture. I estimates that the minmum points might be
+right corner.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{def} \PY{n+nf}{convert\PYZus{}func}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{T}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{T}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{func3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{frompyfunc}\PY{p}{(}\PY{n}{convert\PYZus{}func}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}obj\PYZus{}convert}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{func2}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+             \PY{n}{Z\PYZus{}1} \PY{o}{=} \PY{n}{func3}\PY{p}{(}\PY{n}{Z}\PY{p}{,} \PY{n}{T}\PY{p}{)}
+          
+             \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{Axes3D}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z\PYZus{}1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         
+         \PY{n}{plot\PYZus{}obj\PYZus{}convert}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{plot\PYZus{}obj\PYZus{}convert}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plot\PYZus{}obj\PYZus{}convert}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Implement a simulated annealing procedure to find the global minimum
+  of this surface
+\end{enumerate}
+
+Simulated annealing (SA) is a probabilistic technique for approximating
+the global optimum of a given function, which is base on MCMC and use
+Metropolis-Hastings algorithm to construct MC chain. Each step is a MC
+chain. Actually, it's a combination of many MC chains.
+
+convertion fucntion SA use the convertion fucntion as the Q fucntion we
+refered to before. From the picture, we can see that when T is large,
+the surface is bumpy and as the T become small, the surface become
+smooth and only one mountain left. Fortunately, it's our expectation
+point.
+
+SA procedure: It starts from a state s0 and continues until a maximum of
+kmax steps have been taken. In the process, the call neighbour(s) should
+generate a randomly chosen neighbour of a given state s; the call
+random(0, 1) should pick and return a value in the range {[}0, 1{]},
+uniformly at random. The annealing schedule is defined by the call
+temperature(r), which should yield the temperature to use, given the
+fraction r of the time budget that has been expended so far.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{k}{def} \PY{n+nf}{simulated\PYZus{}annealing}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{alpha\PYZus{}func}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{n}{T\PYZus{}init} \PY{o}{=} \PY{l+m+mi}{1000}  
+              \PY{n}{T\PYZus{}min} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}20} 
+              \PY{n}{T} \PY{o}{=} \PY{n}{T\PYZus{}init}
+              \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{500}
+              \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{500}
+              
+              \PY{n}{z} \PY{o}{=} \PY{n}{scwefel\PYZus{}2d}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+              \PY{n}{x\PYZus{}best} \PY{o}{=} \PY{n}{x}
+              \PY{n}{y\PYZus{}best} \PY{o}{=} \PY{n}{y}
+              \PY{n}{z\PYZus{}best} \PY{o}{=} \PY{n}{z}
+              
+              \PY{n}{cycle} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{if} \PY{n}{alpha\PYZus{}func} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exponential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{n}{alpha} \PY{o}{=} \PY{k}{lambda} \PY{n}{cycle}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mf}{0.85}\PY{p}{,} \PY{n}{cycle}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{alpha\PYZus{}func} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polynomial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{n}{alpha} \PY{o}{=} \PY{k}{lambda} \PY{n}{cycle}\PY{p}{:} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n}{cycle}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{alpha\PYZus{}func} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logarithmic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{n}{alpha} \PY{o}{=} \PY{k}{lambda} \PY{n}{cycle}\PY{p}{:} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mf}{1.5} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{cycle}\PY{p}{)}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{alpha} \PY{o}{=} \PY{k}{lambda} \PY{n}{cycle}\PY{p}{:} \PY{l+m+mf}{0.995} 
+          
+              \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{while} \PY{n}{T} \PY{o}{\PYZgt{}} \PY{n}{T\PYZus{}min}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{delta\PYZus{}x} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{50}
+                      \PY{n}{delta\PYZus{}y} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{50}
+          
+          
+                      \PY{k}{if} \PY{o}{\PYZhy{}}\PY{l+m+mi}{500} \PY{o}{\PYZlt{}} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{delta\PYZus{}x}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{500}\PY{p}{:}
+                          \PY{n}{x\PYZus{}new} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{delta\PYZus{}x}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{x\PYZus{}new} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{delta\PYZus{}x}
+          
+                      \PY{k}{if} \PY{o}{\PYZhy{}}\PY{l+m+mi}{500} \PY{o}{\PYZlt{}} \PY{p}{(}\PY{n}{y} \PY{o}{+} \PY{n}{delta\PYZus{}y}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{500}\PY{p}{:}
+                          \PY{n}{y\PYZus{}new} \PY{o}{=} \PY{n}{y} \PY{o}{+} \PY{n}{delta\PYZus{}y}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{y\PYZus{}new} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{delta\PYZus{}y}
+          
+                      \PY{n}{z\PYZus{}new} \PY{o}{=} \PY{n}{scwefel\PYZus{}2d}\PY{p}{(}\PY{n}{x\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}new}\PY{p}{)}
+          
+                      \PY{k}{if} \PY{n}{z\PYZus{}new} \PY{o}{\PYZlt{}} \PY{n}{z} \PY{o+ow}{or} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{z\PYZus{}new} \PY{o}{\PYZhy{}} \PY{n}{z}\PY{p}{)} \PY{o}{/} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{x} \PY{o}{=} \PY{n}{x\PYZus{}new}
+                          \PY{n}{y} \PY{o}{=} \PY{n}{y\PYZus{}new}
+                          \PY{n}{z} \PY{o}{=} \PY{n}{z\PYZus{}new}
+                          \PY{k}{if} \PY{n}{z} \PY{o}{\PYZlt{}} \PY{n}{z\PYZus{}best}\PY{p}{:}
+                              \PY{n}{x\PYZus{}best} \PY{o}{=} \PY{n}{x}
+                              \PY{n}{y\PYZus{}best} \PY{o}{=} \PY{n}{y}
+                              \PY{n}{z\PYZus{}best} \PY{o}{=} \PY{n}{z}
+          
+                  \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}best}\PY{p}{,} \PY{n}{y\PYZus{}best}\PY{p}{,} \PY{n}{z\PYZus{}best}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{T} \PY{o}{*}\PY{o}{=} \PY{n}{alpha}\PY{p}{(}\PY{n}{cycle}\PY{p}{)}
+                  \PY{n}{cycle} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+          \PY{c+c1}{\PYZsh{}     print(\PYZsq{}best solution x:\PYZpc{}f,y:\PYZpc{}f,z:\PYZpc{}f\PYZsq{} \PYZpc{} results[\PYZhy{}1])}
+          
+              \PY{c+c1}{\PYZsh{} plot\PYZus{}iter\PYZus{}curve(results)}
+          
+              \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{res} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.924535,y:420.945313,z:0.000341
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Implement a simulated annealing procedure to find the global minimum
+  of this surface
+\end{enumerate}
+
+I set the parameter to make the algorithm very slow so that it could get
+the best solution. I set the initial temperature as 1000 and use
+constant number 0.995 to play the role of cooling schedule and 500 as
+the iteration. In this case, the algorithm could converge at any
+temperature and finally it could converge to the minimum. The minimum is
+0.000341 and its corresponding point is (420.924535, 420.945313). But
+it's really slow. Next, I change the cooling schedule and change
+parameters to fasten the algorithm.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{k}{def} \PY{n+nf}{repeat\PYZus{}sa}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{repeat}\PY{p}{,} \PY{n}{cooling}\PY{p}{)}\PY{p}{:}
+              \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{repeat}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{repeat}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tmp}\PY{p}{,} \PY{n}{cycle} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{,} \PY{n}{alpha\PYZus{}func}\PY{o}{=}\PY{n}{cooling}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                  \PY{n}{final\PYZus{}result}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                  \PY{n}{final\PYZus{}result}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                  \PY{n}{final\PYZus{}result}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{res} \PY{o}{=} \PY{n}{final\PYZus{}result}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{final\PYZus{}result} \PY{o}{==} \PY{n}{res}\PY{p}{)}
+              \PY{n}{fres} \PY{o}{=} \PY{n}{final\PYZus{}result}\PY{p}{[}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best solution x:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{,y:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{,z:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{final\PYZus{}result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{k}{def} \PY{n+nf}{hist\PYZus{}res}\PY{p}{(}\PY{n}{res}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+              \PY{n}{num\PYZus{}bins} \PY{o}{=} \PY{l+m+mi}{50}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{num\PYZus{}bins}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}iteration\PYZus{}cooling}\PY{p}{(}\PY{n}{cooling}\PY{p}{)}\PY{p}{:}
+              \PY{n}{res1\PYZus{}20} \PY{o}{=} \PY{n}{repeat\PYZus{}sa}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{repeat}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cooling}\PY{o}{=}\PY{n}{cooling}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{hist\PYZus{}res}\PY{p}{(}\PY{n}{res1\PYZus{}20}\PY{p}{)}
+              \PY{n}{res1\PYZus{}50} \PY{o}{=} \PY{n}{repeat\PYZus{}sa}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{repeat}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cooling}\PY{o}{=}\PY{n}{cooling}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{hist\PYZus{}res}\PY{p}{(}\PY{n}{res1\PYZus{}50}\PY{p}{)}
+              \PY{n}{res1\PYZus{}100} \PY{o}{=} \PY{n}{repeat\PYZus{}sa}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{repeat}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cooling}\PY{o}{=}\PY{n}{cooling}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{hist\PYZus{}res}\PY{p}{(}\PY{n}{res1\PYZus{}100}\PY{p}{)}
+              \PY{n}{res1\PYZus{}1000} \PY{o}{=} \PY{n}{repeat\PYZus{}sa}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{repeat}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{cooling}\PY{o}{=}\PY{n}{cooling}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{hist\PYZus{}res}\PY{p}{(}\PY{n}{res1\PYZus{}1000}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{test\PYZus{}iteration\PYZus{}cooling}\PY{p}{(}\PY{n}{cooling}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exponential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.051336,y:422.634470,z:0.456474
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:421.230570,y:421.941473,z:0.128110
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.541827,y:421.544427,z:0.064847
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.955787,y:421.053282,z:0.000948
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{test\PYZus{}iteration\PYZus{}cooling}\PY{p}{(}\PY{n}{cooling}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polynomial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} res3 = simulated\PYZus{}annealing(t=1000, alpha\PYZus{}func=\PYZsq{}logarithmic\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:422.355997,y:419.238381,z:0.620473
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:421.707366,y:421.608960,z:0.120615
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:421.084613,y:421.771396,z:0.083035
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.984419,y:421.041751,z:0.000729
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{test\PYZus{}iteration\PYZus{}cooling}\PY{p}{(}\PY{n}{cooling}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logarithmic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:421.922670,y:420.520605,z:0.140223
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.972749,y:420.839058,z:0.002150
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.412091,y:421.127582,z:0.042300
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.927055,y:420.969991,z:0.000245
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Explore the behavior of the procedure starting from the origin with an
+  exponential, a polynomial, and a logarithmic cooling schedule. Run the
+  procedure for t=\{20, 50, 100, 1000\} iterations for k=100 runs each.
+  Plot a histogram of the function minima your procedure converges to.
+\end{enumerate}
+
+From the picture, we can conclude that as T increases, the number of
+convergeing into 0 increases. However, there still are some error
+answers. From the result，the exponential cooling schedule performs
+better. And compared to constant cooling schedule，convergence time
+decreases a lot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}iter\PYZus{}curve}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{:}
+              \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{results}\PY{p}{:}
+                  \PY{n}{X}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{Y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{Z}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{figure} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Choose your best run and overlay your 2-D sample path on the contour
+  plot of the Schwefel function to visualize the locations your
+  optimization routine explored.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{minimum} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{n}{tmp} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing}\PY{p}{(}\PY{n}{t}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{alpha\PYZus{}func}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exponential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{tmp1} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{k}{if} \PY{n}{tmp1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{minimum}\PY{p}{:}
+                  \PY{n}{minimum} \PY{o}{=} \PY{n}{tmp1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                  \PY{n}{final\PYZus{}res} \PY{o}{=} \PY{n}{tmp}
+          
+          \PY{n}{fres} \PY{o}{=} \PY{n}{final\PYZus{}res}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best solution x:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{,y:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{,z:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          \PY{n}{Z} \PY{o}{=} \PY{n}{func2}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{cset} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{hot}\PY{p}{)}
+          \PY{n}{contour} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{clabel}\PY{p}{(}\PY{n}{contour}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{cset}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{fres}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{X1}\PY{p}{,} \PY{n}{Y1}\PY{p}{,} \PY{n}{Z1} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{final\PYZus{}res}\PY{p}{:}
+              \PY{n}{X1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{Y1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{Z1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{Axes3D}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{n}{Y1}\PY{p}{,} \PY{n}{Z1}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+best solution x:420.848477,y:421.740665,z:0.077058
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{pick\PYZus{}cities}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cities} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+                \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+                \PY{n}{cities}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{cities}
+        
+        
+        \PY{k}{def} \PY{n+nf}{getdistmat}\PY{p}{(}\PY{n}{init\PYZus{}cities}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{init\PYZus{}cities}\PY{p}{)}
+            \PY{n}{distmat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{distmat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{distmat}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{init\PYZus{}cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{init\PYZus{}cities}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{distmat}
+        
+        
+        \PY{k}{def} \PY{n+nf}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}\PY{p}{:}
+            \PY{n}{distance} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cities}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{distance} \PY{o}{+}\PY{o}{=} \PY{n}{distance\PYZus{}mat}\PY{p}{[}\PY{n}{cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{n}{cities}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return} \PY{n}{distance}
+        
+        
+        \PY{c+c1}{\PYZsh{} def generate\PYZus{}new\PYZus{}path(cities):}
+        \PY{c+c1}{\PYZsh{}     n = len(cities)}
+        \PY{c+c1}{\PYZsh{}     i = random.randint(0, n\PYZhy{}1)}
+        \PY{c+c1}{\PYZsh{}     j = random.randint(0, n\PYZhy{}1)}
+        \PY{c+c1}{\PYZsh{}     while j == i:}
+        \PY{c+c1}{\PYZsh{}         j = random.randint(0, n\PYZhy{}1)   \PYZsh{} randint包含边界}
+        \PY{c+c1}{\PYZsh{}     cities[i], cities[j] = cities[j], cities[i]}
+        \PY{c+c1}{\PYZsh{}     return cities}
+        
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}new\PYZus{}path}\PY{p}{(}\PY{n}{cities}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cities}\PY{p}{)}
+            \PY{n}{i} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{j} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{while} \PY{n}{j} \PY{o}{==} \PY{n}{i}\PY{p}{:}
+                \PY{n}{j} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}   \PY{c+c1}{\PYZsh{} randint包含边界}
+        
+            \PY{n}{u} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if} \PY{n}{u} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5}\PY{p}{:}
+                \PY{n}{cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{cities}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{cities}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{change\PYZus{}head} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}
+                \PY{n}{change\PYZus{}tail} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}
+                \PY{n}{change\PYZus{}list} \PY{o}{=} \PY{n}{cities}\PY{p}{[}\PY{n}{change\PYZus{}head}\PY{p}{:}\PY{n}{change\PYZus{}tail} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{change\PYZus{}list}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+                \PY{n}{cities} \PY{o}{=} \PY{n}{cities}\PY{p}{[}\PY{p}{:}\PY{n}{change\PYZus{}head}\PY{p}{]} \PY{o}{+} \PY{n}{change\PYZus{}list} \PY{o}{+} \PY{n}{cities}\PY{p}{[}\PY{n}{change\PYZus{}tail} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+            \PY{k}{return} \PY{n}{cities}
+        
+        
+        \PY{k}{def} \PY{n+nf}{violence}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}\PY{p}{:}
+            \PY{n}{solution} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{]}
+            \PY{n}{nums} \PY{o}{=} \PY{n}{itertools}\PY{o}{.}\PY{n}{permutations}\PY{p}{(}\PY{n}{solution}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+            \PY{n}{best\PYZus{}sol} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{nums}\PY{p}{:}
+                \PY{n}{sol} \PY{o}{=} \PY{n}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+                \PY{n}{best\PYZus{}sol} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{[}\PY{n}{sol}\PY{p}{,} \PY{n}{best\PYZus{}sol}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{best\PYZus{}sol}
+\end{Verbatim}
+
+
+    Optimal Paths The famous Traveling Salesman Problem (TSP) is an NP-hard
+routing problem.
+
+Firstly, I random choose N cities and then I shuffle the list to set a
+start point and initiate the parameters. Secondly, I use two ways to
+generate the new path, the first one is to choose two number randomly
+and swap them, the second one is to reverse the path between two numeber
+we choose. Finally, I update your annealing temperature and repeat the
+previous city swap step. Run the simulated annealing procedure ``to
+convergence.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{init\PYZus{}}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{init\PYZus{}cities} \PY{o}{=} \PY{n}{pick\PYZus{}cities}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+             \PY{n}{init\PYZus{}cities} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{init\PYZus{}cities}\PY{p}{)}
+             \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{getdistmat}\PY{p}{(}\PY{n}{init\PYZus{}cities}\PY{p}{)}
+             \PY{k}{return} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}
+         
+         
+         \PY{k}{def} \PY{n+nf}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T\PYZus{}init} \PY{o}{=} \PY{l+m+mi}{4000} 
+             \PY{n}{T\PYZus{}min} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}20}  
+             \PY{n}{T} \PY{o}{=} \PY{n}{T\PYZus{}init}
+             
+             \PY{n}{cycle} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{alpha} \PY{o}{=} \PY{k}{lambda} \PY{n}{cycle}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mf}{0.85}\PY{p}{,} \PY{n}{cycle}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}     alpha = 0.995 }
+         
+             \PY{n}{solution} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{]}
+             
+             \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{solution}\PY{p}{)}
+             \PY{n}{distance} \PY{o}{=} \PY{n}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{solution}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+             
+             \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{distance\PYZus{}best} \PY{o}{=} \PY{n}{distance}
+             \PY{n}{solution\PYZus{}best} \PY{o}{=} \PY{n}{solution}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{while} \PY{n}{T} \PY{o}{\PYZgt{}} \PY{n}{T\PYZus{}min}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{solution\PYZus{}new} \PY{o}{=} \PY{n}{generate\PYZus{}new\PYZus{}path}\PY{p}{(}\PY{n}{solution}\PY{p}{)}
+                     \PY{n}{distance\PYZus{}new} \PY{o}{=} \PY{n}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{solution\PYZus{}new}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         
+                     \PY{k}{if} \PY{n}{distance\PYZus{}new} \PY{o}{\PYZlt{}} \PY{n}{distance}\PY{p}{:}
+                         \PY{n}{distance} \PY{o}{=} \PY{n}{distance\PYZus{}new}
+                         \PY{n}{solution} \PY{o}{=} \PY{n}{solution\PYZus{}new}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+                         \PY{k}{if} \PY{n}{distance\PYZus{}new} \PY{o}{\PYZlt{}} \PY{n}{distance\PYZus{}best}\PY{p}{:}
+                             \PY{n}{distance\PYZus{}best} \PY{o}{=} \PY{n}{distance\PYZus{}new}
+                             \PY{n}{solution\PYZus{}best} \PY{o}{=} \PY{n}{solution\PYZus{}new}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{distance\PYZus{}new} \PY{o}{\PYZhy{}} \PY{n}{distance}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                         \PY{n}{u} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                         \PY{k}{if} \PY{n}{u} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{p}\PY{p}{:}
+                             \PY{n}{distance} \PY{o}{=} \PY{n}{distance\PYZus{}new}
+                             \PY{n}{solution} \PY{o}{=} \PY{n}{solution\PYZus{}new}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                             
+                     \PY{n}{distance\PYZus{}all}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{distance}\PY{p}{)}
+                 \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{distance\PYZus{}best}\PY{p}{,} \PY{n}{solution\PYZus{}best}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{n}{T} \PY{o}{*}\PY{o}{=} \PY{n}{alpha}\PY{p}{(}\PY{n}{cycle}\PY{p}{)}
+                 \PY{n}{cycle} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{c+c1}{\PYZsh{}     print(\PYZsq{}the closet path is\PYZsq{}, result[\PYZhy{}1])}
+             \PY{k}{return} \PY{n}{result}\PY{p}{,} \PY{n}{distance\PYZus{}all}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{repeat\PYZus{}TSP}\PY{p}{(}\PY{n}{repeat}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}\PY{p}{:}
+             \PY{n}{minimum} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{repeat}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{tmp}\PY{p}{,} \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{tmp}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{minimum}\PY{p}{:}
+                     \PY{n}{minimum} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                     \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             
+             \PY{k}{return} \PY{n}{minimum}\PY{p}{,} \PY{n}{final\PYZus{}result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+          \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
+          \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n}{vol\PYZus{}sol} \PY{o}{=} \PY{n}{violence}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+          \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{8 cities violence runtime:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+          
+          \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+          \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n}{vol\PYZus{}sol} \PY{o}{=} \PY{n}{violence}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+          \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{9 cities violence runtime:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+          
+          \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n}{vol\PYZus{}sol} \PY{o}{=} \PY{n}{violence}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+          \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10 cities violence runtime:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+8 cities violence runtime: 0.397491455078125
+9 cities violence runtime: 3.5437560081481934
+10 cities violence runtime: 35.5460524559021
+
+    \end{Verbatim}
+
+    I enumerate all possible the results and choose the minimum to verify my
+procedure. And I count the time of violence enumerate, which increases
+exponentially. My computer just could calulate n=20 and if n is larger
+than 20, my pc is down. So it's a advantage of MCMC solutions .
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{vol\PYZus{}sol} \PY{o}{=} \PY{n}{violence}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n}{minimum}\PY{p}{,} \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{repeat\PYZus{}TSP}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shortest distance is:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{minimum}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best solution is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{final\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The shortest distance is:1475.626464 The best solution is [1, 6, 0, 2, 4, 5, 7, 3]
+The shortest distance is:1475.626464 The best solution is [1, 6, 0, 2, 4, 5, 7, 3]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}path}\PY{p}{(}\PY{n}{best\PYZus{}path\PYZus{}list}\PY{p}{,} \PY{n}{cities}\PY{p}{,} \PY{n}{distance\PYZus{}all}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{best\PYZus{}path\PYZus{}tmp} \PY{o}{=} \PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{best\PYZus{}path\PYZus{}list}\PY{p}{]}
+             \PY{k}{for} \PY{n}{point} \PY{o+ow}{in} \PY{n}{best\PYZus{}path\PYZus{}list}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cities}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cities}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)} 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{311}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{best\PYZus{}path\PYZus{}tmp}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{312}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{distance\PYZus{}all}\PY{p}{)} 
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{313}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}  
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{res}\PY{p}{,} \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{)}
+         \PY{n}{res}\PY{p}{,} \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TSP run time is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+         \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}all}\PY{p}{)}
+         
+         \PY{n}{minimum}\PY{p}{,} \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{repeat\PYZus{}TSP}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shortest distance is:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{minimum}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best solution is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{final\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TSP run time is 0.9235572814941406
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The shortest distance is:14839.334285 The best solution is [1, 29, 4, 32, 17, 15, 20, 27, 23, 22, 24, 0, 11, 16, 14, 9, 21, 8, 12, 3, 34, 26, 2, 35, 38, 7, 33, 28, 30, 13, 10, 6, 19, 31, 36, 5, 37, 18, 25, 39]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{res}\PY{p}{,} \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TSP run time is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+         \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}all}\PY{p}{)}
+         
+         \PY{n}{minimum}\PY{p}{,} \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{repeat\PYZus{}TSP}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shortest distance is:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{minimum}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best solution is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{final\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TSP run time is 5.289810419082642
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The shortest distance is:12638.192675 The best solution is [22, 11, 14, 6, 2, 30, 32, 5, 26, 10, 4, 36, 35, 16, 12, 21, 20, 31, 27, 18, 25, 34, 8, 1, 24, 33, 39, 7, 29, 37, 3, 17, 15, 28, 38, 13, 19, 9, 23, 0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{init\PYZus{}}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{res}\PY{p}{,} \PY{n}{distance\PYZus{}all} \PY{o}{=} \PY{n}{simulated\PYZus{}annealing\PYZus{}tsp}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TSP run time is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}
+         \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}all}\PY{p}{)}
+         
+         \PY{n}{minimum}\PY{p}{,} \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{n}{repeat\PYZus{}TSP}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{n}{init\PYZus{}cities}\PY{p}{,} \PY{n}{distance\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shortest distance is:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{minimum}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best solution is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{final\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TSP run time is 5.404755353927612
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The shortest distance is:195052.929222 The best solution is [44, 359, 187, 216, 374, 163, 164, 43, 155, 83, 169, 122, 213, 263, 327, 184, 332, 289, 127, 95, 68, 194, 18, 307, 382, 132, 138, 230, 256, 260, 59, 367, 264, 295, 210, 284, 186, 379, 309, 203, 48, 265, 360, 87, 72, 42, 204, 365, 251, 291, 125, 253, 25, 98, 115, 277, 308, 394, 17, 323, 372, 107, 196, 239, 274, 321, 350, 49, 254, 104, 121, 296, 288, 141, 202, 154, 364, 20, 190, 368, 137, 91, 285, 179, 250, 67, 74, 126, 69, 388, 258, 352, 325, 167, 343, 294, 221, 97, 215, 85, 342, 119, 189, 33, 171, 200, 370, 267, 133, 389, 166, 341, 375, 273, 317, 188, 262, 30, 21, 300, 71, 301, 157, 182, 217, 207, 384, 9, 23, 224, 211, 4, 136, 227, 118, 108, 212, 6, 278, 162, 50, 240, 236, 124, 61, 101, 51, 65, 272, 326, 86, 271, 304, 161, 269, 13, 0, 172, 147, 128, 109, 320, 270, 57, 90, 371, 223, 348, 297, 168, 356, 60, 191, 209, 383, 131, 78, 12, 130, 77, 81, 259, 100, 34, 355, 40, 242, 76, 177, 149, 302, 123, 245, 73, 7, 234, 322, 199, 175, 252, 353, 231, 395, 75, 111, 89, 393, 8, 37, 330, 45, 53, 306, 146, 346, 56, 331, 82, 244, 337, 129, 396, 311, 397, 92, 144, 120, 392, 201, 314, 116, 344, 185, 292, 361, 354, 255, 39, 205, 349, 261, 105, 176, 219, 363, 94, 233, 158, 390, 195, 70, 299, 180, 117, 160, 181, 35, 312, 1, 222, 145, 281, 338, 237, 319, 197, 156, 316, 193, 103, 351, 378, 329, 303, 88, 19, 369, 385, 243, 298, 232, 142, 324, 290, 165, 170, 376, 286, 15, 268, 3, 335, 247, 62, 373, 276, 266, 336, 228, 198, 27, 80, 206, 11, 328, 340, 151, 333, 14, 99, 153, 339, 386, 46, 280, 16, 399, 315, 5, 220, 377, 135, 229, 58, 226, 183, 208, 225, 96, 387, 257, 36, 54, 347, 66, 313, 52, 249, 238, 2, 79, 148, 345, 26, 114, 29, 38, 24, 159, 310, 218, 47, 318, 287, 140, 192, 41, 357, 358, 63, 235, 362, 173, 214, 334, 10, 113, 283, 55, 275, 246, 64, 152, 248, 282, 391, 31, 102, 112, 84, 93, 381, 174, 380, 279, 293, 28, 150, 106, 143, 139, 110, 398, 366, 32, 241, 178, 305, 134, 22]
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Run the Simulated Annealing TSP solver you just developed for N =
+  \{40, 400, 1000\} cities. Explore the speed and convergence properties
+  at these different problem sizes. You might want to play with the
+  cooling schedules.
+\end{enumerate}
+
+As N increases, the run time increases, but when N reach threshold, run
+time will reach convergence. Since when N reaches threshold, the
+iteration of the procedure will be determined because of cooling
+schdule, that is, the number of iteration will be determined. Of course
+the speed will convergence.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
